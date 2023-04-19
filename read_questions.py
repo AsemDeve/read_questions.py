@@ -10,6 +10,7 @@ import xlsx_operations
 
 docx_name = 'test'
 doc = docx2txt.process('doc/' + docx_name + '.docx')
+
 question_pattern = r"(#.*?#)"
 choices_pattern = '\n+'  # split choices by new line
 choices_pattern_1 = "^[a-fA-F][.|\-|)|:]"
@@ -46,10 +47,9 @@ for question, choices in zip(list_of_questions, list_of_choices):
         raw_split_choices = re.split(choices_pattern, choices)
         split_choices = []
         for choice in raw_split_choices:  # remove empty choices from choices list
-            if choice != ' ':
-                split_choices.append(choice)
+            if choice.strip() != '':
+                split_choices.append(choice.strip())
 
-        split_choices.pop(0)  # remove first choice from choices list ; it is empty
         answer_index = 0
         for item in split_choices:
             cleanChoice = re.sub(choices_pattern_by_letter, "", item.strip())  # remove choices numbering
