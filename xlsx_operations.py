@@ -20,7 +20,7 @@ def read(file_name):
 def write(file_name, data_list):
     workbook= openpyxl.Workbook()
     my_xlsx = workbook.active
-    my_xlsx.sheet_view.rightToLeft = True
+    #my_xlsx.sheet_view.rightToLeft = True
 
     for row in data_list:
         my_xlsx.append(row)
@@ -41,7 +41,7 @@ def append(file_name, sheet_name, data_list):
 
         for row in data_list:
             worksheet.append(row)
-        worksheet.sheet_view.rightToLeft = True
+        #worksheet.sheet_view.rightToLeft = True
         my_xlsx.save(filename=file_name)
         print('completed')
 
