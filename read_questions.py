@@ -6,7 +6,7 @@ import xlsx_operations
 
 
 
-""" this code read questions and choices , split choices by new line """
+""" this code read questions and choices from microsoft word (.docx) file , split choices by new line """
 
 docx_name = 'test'
 doc = docx2txt.process('doc/' + docx_name + '.docx')
@@ -32,10 +32,10 @@ question_and_choices.append(header)
 duplicated_questions=0
 
 for question, choices in zip(list_of_questions, list_of_choices):
-    if any(word.lower() in question.lower() for word in check_image_list):
+    if any(word.lower() in question.lower() for word in check_image_list): # chcek if questions have images
         list_of_questions_with_images.append(str(list_of_questions.index(question) + 1))
 
-    if '$' in question:  # to ignore duplicated questions
+    if '$' in question:  # to ignore duplicated questions, while dublicate questions have ($) in it
         duplicated_questions+=1
     else:
 
@@ -43,9 +43,9 @@ for question, choices in zip(list_of_questions, list_of_choices):
         removeH = re.sub(r"#", "", question)  # remove # from question Text
         cleanQ = re.sub(r"^(\d{1,3}[.|\-|)|:])", "", removeH.strip())  # remove question number
         inner_list.append(cleanQ.strip())
-        split_choices_raw = re.split(choices_pattern, choices)
+        raw_split_choices = re.split(choices_pattern, choices)
         split_choices = []
-        for choice in split_choices_raw:  # remove empty choices from choices list
+        for choice in raw_split_choices:  # remove empty choices from choices list
             if choice != ' ':
                 split_choices.append(choice)
 
@@ -55,12 +55,11 @@ for question, choices in zip(list_of_questions, list_of_choices):
             cleanChoice = re.sub(choices_pattern_by_letter, "", item.strip())  # remove choices numbering
 
             if '*' in item:
-                    answer_index = split_choices.index(item)+1
-                    cleanChoice = re.sub("\*", "", item)  # remove * from the answer.
-                    cleanChoice = re.sub(choices_pattern_by_letter, "",
-                                         cleanChoice.strip())  # remove choices numbering from the answer
+                answer_index = split_choices.index(item)+1
+                cleanChoice = re.sub("\*", "", item)  # remove * from the answer.
+                cleanChoice = re.sub(choices_pattern_by_letter, "",cleanChoice.strip())  # remove choices numbering from the answer
 
-            if not cleanChoice.endswith(".") and cleanChoice.strip()!="" : # add (.) to the end of choice if not exist.
+            if not cleanChoice.endswith(".") and cleanChoice.strip()!="" : # add (.) to the end of choices.
 
                     inner_list.append(cleanChoice.strip() + '.')
             else:
