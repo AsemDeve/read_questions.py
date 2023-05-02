@@ -33,7 +33,7 @@ duplicated_questions=0
 
 for question, choices in zip(list_of_questions, list_of_choices):
     if any(word.lower() in question.lower() for word in check_image_list): # chcek if questions have images
-        list_of_questions_with_images.append(str(list_of_questions.index(question) + 1))
+        list_of_questions_with_images.append(list_of_questions.index(question) + 1)
     if '$' in question:  # to ignore duplicated questions, while dublicate questions have ($) in it
         duplicated_questions+=1
     else:
