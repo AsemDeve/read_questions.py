@@ -8,14 +8,16 @@ import xlsx_operations
 
 """ this code read questions and choices from microsoft word (.docx) file , split choices by new line """
 
-docx_name = 'Radio_class'
+docx_name = 'ortho_class'
 doc = docx2txt.process('doc/' + docx_name + '.docx')
 
 question_pattern = r"(#.*?#)"
 choices_pattern = '\n+'  # split choices by new line
 choices_pattern_1 = "^[a-fA-F][.|\-|)|:]"
 choices_pattern_2 = "^[(][a-fA-F][.|\-|)|:]"
-choices_pattern_by_letter=choices_pattern_1 + '|' + choices_pattern_2
+choices_pattern_3="^[a-fA-F][ ]"
+
+choices_pattern_by_letter=choices_pattern_1 + '|' + choices_pattern_2 + '|' + choices_pattern_3
 
 header = ['questionType', 'questionText', 'option1', 'option2', 'option3', 'option4', 'option5', 'answer']
 check_image_list = ['image','picture ', 'shown', 'figure','graph','diagram','table','radiograph','DVH','CT scan']
