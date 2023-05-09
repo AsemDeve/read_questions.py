@@ -20,7 +20,7 @@ choices_pattern_3="^[a-fA-F][ ]"
 choices_pattern_by_letter=choices_pattern_1 + '|' + choices_pattern_2 + '|' + choices_pattern_3
 
 header = ['questionType', 'questionText', 'option1', 'option2', 'option3', 'option4', 'option5', 'answer']
-check_image_list = ['image','picture ', 'shown', 'figure','graph','diagram','table','radiograph','DVH','CT scan']
+check_image_list = ['image','picture ', 'shown', ' figure',' graph',' diagram',' table','radiograph','DVH','CT scan']
 
 matches = re.split(question_pattern, doc, flags=re.DOTALL)  # to split answers and questions :
 
@@ -28,14 +28,15 @@ list_of_questions = matches[1::2]  # Elements from "matches" list starting from 
 list_of_choices = matches[2::2]  # Elements from "matches" list starting from 2 iterating by 2
 
 list_of_questions_with_images=[]
+questions_with_images=0
 list_of_questions_with_duplicate_choices=[]
 question_and_choices = []
 question_and_choices.append(header)
 duplicated_questions=0
 
 for question, choices in zip(list_of_questions, list_of_choices):
-    if any(word.lower() in question.lower() for word in check_image_list): # chcek if questions have images
-        list_of_questions_with_images.append(list_of_questions.index(question) + 1)
+
+    questions_with_images+=1
     if '$' in question:  # to ignore duplicated questions, while dublicate questions have ($) in it
         duplicated_questions+=1
     else:
@@ -65,11 +66,16 @@ for question, choices in zip(list_of_questions, list_of_choices):
         inner_list.append(None)  # to keep list and answer index wrapped.
         inner_list.append(None)  # to keep list and answer index wrapped.
         inner_list.insert(7, answer_index)
+
+        for word in check_image_list:   # find images in questions
+            if word.lower() in inner_list[1].lower():
+                list_of_questions_with_images.append(word)
+                list_of_questions_with_images.append(questions_with_images+1)
         question_and_choices.append(inner_list)
 
 print("total number of questions : " + str(len(list_of_questions)) +" // duplicated questions : " +str(duplicated_questions))
 print("choices duplicates found in Question: " + str(list_of_questions_with_duplicate_choices))
-print("image found in Question: " +   str (list_of_questions_with_images))
+print("image found in Excel rows : " +   str (list_of_questions_with_images))
 
 xlsx_operations.write('doc/' + docx_name + '.xlsx', question_and_choices)
 
