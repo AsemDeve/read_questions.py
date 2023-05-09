@@ -8,7 +8,7 @@ import xlsx_operations
 
 """ this code read questions and choices from microsoft word (.docx) file , split choices by new line """
 
-docx_name = 'ortho_class'
+docx_name = str(input('ُEnter the name of the questions file: '))
 doc = docx2txt.process('doc/' + docx_name + '.docx')
 
 question_pattern = r"(#.*?#)"
