@@ -20,7 +20,7 @@ choices_pattern_3="^[a-fA-F][ ]"
 choices_pattern_by_letter=choices_pattern_1 + '|' + choices_pattern_2 + '|' + choices_pattern_3
 
 header = ['questionType', 'questionText', 'option1', 'option2', 'option3', 'option4', 'option5', 'answer']
-check_image_list = ['image','picture ', 'shown', ' figure',' graph',' diagram',' table','radiograph','DVH','CT scan']
+check_image_list = ['image',' picture', 'shown', ' figure',' graph',' diagram',' table','radiograph','DVH',' CT ','x-ray']
 
 matches = re.split(question_pattern, doc, flags=re.DOTALL)  # to split answers and questions :
 
