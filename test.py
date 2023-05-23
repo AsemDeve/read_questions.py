@@ -48,7 +48,7 @@ for question, choices in zip(list_of_questions, list_of_choices):
             if choice.strip() != '':
                 split_choices.append(choice.strip())
         asterisk_count = 0
-        for string in split_choices: # check if no one of choices has answer or , more than one choice has answer
+        for string in split_choices:
             if "*" in string:
                 asterisk_count += 1
                 if asterisk_count > 1:
