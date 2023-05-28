@@ -14,12 +14,15 @@ choices_pattern = '\n+'  # split choices by new line
 choices_pattern_1 = "^[a-fA-F][.|\-|)|:]"
 choices_pattern_2 = "^[(][a-fA-F][.|\-|)|:]"
 choices_pattern_3 = "^[a-fA-F][ ]"
+choices_pattern_4 = "^[\d][.|\-|)|:]"
 
-choices_pattern_by_letter = choices_pattern_1 + '|' + choices_pattern_2 + '|' + choices_pattern_3
+
+
+choices_pattern_by_letter = choices_pattern_1 + '|' + choices_pattern_2 + '|' + choices_pattern_3 + '|' + choices_pattern_4
 
 header = ['questionType', 'questionText', 'option1', 'option2', 'option3', 'option4', 'option5', 'answer']
 check_image_list = ['image', ' picture', 'shown', ' figure', ' graph', ' diagram', ' table', 'radiograph', 'DVH',
-                    ' CT ', 'x-ray']
+                    ' CT ', 'x-ray',' OCT']
 
 matches = re.split(question_pattern, doc, flags=re.DOTALL)  # to split answers and questions :
 
@@ -65,9 +68,6 @@ for question, choices in zip(list_of_questions, list_of_choices):
                 cleanChoice = re.sub("\*", "", item)  # remove * from the answer.
                 cleanChoice = re.sub(choices_pattern_by_letter, "",
                                      cleanChoice.strip())  # remove choices numbering from the answer
-            # if '*' in item and answer_index != 0:
-            #     print("More than one answer found!!!! in  question : "+ "\n"+str(question) )
-            #     exit()
             if not cleanChoice.endswith(".") and cleanChoice.strip() != "":  # add (.) to the end of choices.
                 inner_list.append(cleanChoice.strip() + '.')
             else:
