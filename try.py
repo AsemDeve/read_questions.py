@@ -43,9 +43,9 @@ list2 = ["Meanwhile",
          "Moreover",
          "Another"
          ]
-#print(list1)
-
-#print(list2)
-for question, choices in zip(list2, list1):
-    print(question)
-    print(choices)
+# print(list1)
+ab = 10 if 7 >= 8 else 5
+print(ab)
+# for question, choices in zip(list2, list1):
+#     print(question)
+#     print(choices)
